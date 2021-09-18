@@ -4,6 +4,7 @@ import pandas as pd
 import joblib
 from matplotlib.colors import ListedColormap
 import os
+import logging
 
 
 plt.style.use("fivethirtyeight") # To set style of graphs
@@ -17,6 +18,7 @@ def prepare_data(df):
   Returns:
       tuple: it returns the tuples of dependent variables and independent variables
   """
+  logging.info("Preparing the data by seggregating the independent and dependent variable")
   X = df.drop('y', axis=1)
 
   y = df['y']
@@ -25,14 +27,22 @@ def prepare_data(df):
 
 
 def save_model(model, filename):
+  """This saves the trained model to
+
+  Args:
+      model (python object): trained model to
+      filename (str): path to save the model
+  """
+  logging.info('saving the trainig model')
   model_dir = 'models'
   os.makedirs(model_dir, exist_ok=True) #only create if model_dir doesn't exists
   filePath = os.path.join(model_dir, filename)
   joblib.dump(model, filePath)
-
+  logging.info(f'saved the trained model in {filePath}')
 
 def save_plot(df, file_name, model):
   def _create_base_plot(df):
+    logging.info('creating the base plot')
     df.plot(kind='scatter', x='x1', y='x2', c='y', s=100, cmap='winter')
     plt.axhline(y=0, color='black', linestyle='--', linewidth=1)
     plt.axvline(x=0, color='black', linestyle='--', linewidth=1)
@@ -41,6 +51,7 @@ def save_plot(df, file_name, model):
 
 
   def _plot_decision_regions(X, y, classifier, resolution=0.02):
+    logging.info('plotting the decision regions')
     colors = ('red', 'blue', 'gray', 'cyan','orange')
     cmap = ListedColormap(colors[: len(np.unique(y))])
 
@@ -72,3 +83,4 @@ def save_plot(df, file_name, model):
   plot_Path = os.path.join(plot_dir, file_name)
 
   plt.savefig(plot_Path)
+  logging.info(f'saving the plot at {plot_Path}')
