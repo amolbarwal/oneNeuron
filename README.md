@@ -26,3 +26,12 @@ def main(data, eta, epochs, filename, plotfilename):
 ``` bash
 git add . && git commit -m "message" && git push origin main
 ```
+
+## dataset(Table)
+
+x1 | x2 | y
+-|-|-
+0|0|0
+0|1|0
+1|0|0
+1|1|1
