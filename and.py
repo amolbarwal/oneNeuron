@@ -15,7 +15,7 @@ logging.basicConfig(filename=os.path.join(log_dir,"running_logs.log"), level=log
 def main(data, eta, epochs, filename, plotfilename):
 
     df = pd.DataFrame(data)
-    logging.info(f'This is actual dataframe{df}')
+    logging.info(f'This is actual dataframe \n{df}')
 
     X,y = prepare_data(df)
 
